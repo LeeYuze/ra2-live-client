@@ -14,7 +14,7 @@ export const dictStore = defineStore("dict", () => {
       value: 1
     },
     {
-      label: "单位升级",
+      label: "全部单位升级",
       key: "UnitUpgrade",
       value: 2
     },
