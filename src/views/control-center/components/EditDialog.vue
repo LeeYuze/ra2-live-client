@@ -1,16 +1,23 @@
 <script lang="ts" setup>
 import { VueDraggable } from "vue-draggable-plus"
-import { computed, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
 import DynamicTags from "@/views/control-center/components/DynamicTags.vue"
 import GameEvent from "@/views/control-center/components/GameEvent.vue"
 import { nanoid } from "nanoid"
+import { ElMessage } from "element-plus"
+
+const db = window.database
 
 const props = defineProps({
   visible: {
     type: Boolean
+  },
+  id: {
+    type: String,
+    default: ""
   }
 })
-const emits = defineEmits(["update:visible"])
+const emits = defineEmits(["update:visible", "confirm"])
 
 const visible = computed({
   get: () => props.visible,
@@ -19,7 +26,13 @@ const visible = computed({
   }
 })
 
-const data = ref({
+const isEdit = computed({
+  get: () => props.id !== "",
+  set: () => {}
+})
+
+const data = ref<any>({
+  id: "",
   name: "",
   priority: 1,
   trigger: [],
@@ -28,6 +41,24 @@ const data = ref({
   likeNumber: 1,
   actions: [] as any[]
 })
+
+const originData = ref({})
+
+onMounted(() => {
+  if (props.id) {
+    getData()
+  }
+})
+
+const getData = async () => {
+  const res = await db.find("/controls", (item) => item.id === props.id)
+  data.value = { ...res }
+  originData.value = { ...res }
+}
+
+const resetOnClick = () => {
+  data.value = { ...originData.value }
+}
 
 const gameEventOnClick = () => {
   const gameEventObject = {
@@ -52,10 +83,47 @@ const gameEventOnClick = () => {
 const gameEventDeleteOnClick = (id) => {
   data.value.actions = data.value.actions.filter((item) => item.id !== id)
 }
+
+const dialogConfirmOnClick = async () => {
+  data.value.id = nanoid()
+
+  if (!data.value.name) {
+    ElMessage.error("名称不能为空")
+    return
+  }
+
+  if (data.value.trigger.length === 0) {
+    ElMessage.error("触发内容不能为空")
+    return
+  }
+
+  if (data.value.actions.length === 0) {
+    ElMessage.error("请至少设置一种操作")
+    return
+  }
+
+  if (!isEdit.value) {
+    await db.push("/controls[]", data.value)
+    ElMessage({
+      type: "success",
+      message: "新增成功"
+    })
+  } else {
+    const index = await db.getIndex("/controls", data.value.id, "id")
+    await db.push(`/controls[${index}]`, data.value)
+    ElMessage({
+      type: "success",
+      message: "修改成功"
+    })
+  }
+
+  visible.value = false
+  emits("confirm")
+}
 </script>
 
 <template>
-  <el-dialog v-model="visible" title="编辑" width="800">
+  <el-dialog v-model="visible" :title="isEdit ? '编辑' : '新增'" width="800">
     <el-form :model="data" label-width="120">
       <el-form-item label="优先级">
         <el-input-number v-model="data.priority" size="small" :min="1" />
@@ -91,8 +159,8 @@ const gameEventDeleteOnClick = (id) => {
           <el-button size="small" type="success" @click="gameEventOnClick">游戏事件</el-button>
         </div>
         <div>
-          <el-button @click="visible = false">重置</el-button>
-          <el-button type="primary" @click="visible = false"> 确定</el-button>
+          <el-button @click="resetOnClick">重置</el-button>
+          <el-button type="primary" @click="dialogConfirmOnClick"> 确定</el-button>
         </div>
       </div>
     </template>

@@ -93,6 +93,7 @@
     "lodash-es": "4.17.21",
     "mitt": "3.0.1",
     "nanoid": "^5.0.6",
+    "node-json-db": "^2.3.0",
     "normalize.css": "8.0.1",
     "nprogress": "0.2.0",
     "path-browserify": "1.0.1",

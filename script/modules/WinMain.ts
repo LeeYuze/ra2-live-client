@@ -6,6 +6,7 @@ import { ipcMain, BrowserWindow, type BrowserWindowConstructorOptions } from "el
 import * as remote from "@electron/remote/main"
 import GlobalConfig from "./GlobalConfig"
 import { mainLog } from "../utils/logger"
+import path from "path-browserify"
 
 class WinMain {
   /** 窗口实例 */
@@ -33,7 +34,8 @@ class WinMain {
       nodeIntegration: true, // 是否启用 Node 集成
       contextIsolation: false, // 是否在独立 JavaScript 环境中运行 Electron API 和指定的 preload 脚本，默认为 true
       backgroundThrottling: false, // 是否在页面成为背景时限制动画和计时器，默认值为 true
-      nodeIntegrationInWorker: true // 是否在 Web 工作器中启用了 Node 集成
+      nodeIntegrationInWorker: true, // 是否在 Web 工作器中启用了 Node 集成
+      preload: path.join(__dirname, "./Preload.js")
     }
   }
 
