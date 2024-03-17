@@ -9,6 +9,7 @@ import Logo from "../Logo/index.vue"
 import { useDevice } from "@/hooks/useDevice"
 import { useLayoutMode } from "@/hooks/useLayoutMode"
 import { getCssVariableValue } from "@/utils"
+import Tools from "@/layouts/components/Sidebar/Tools.vue"
 
 const v3SidebarMenuBgColor = getCssVariableValue("--v3-sidebar-menu-bg-color")
 const v3SidebarMenuTextColor = getCssVariableValue("--v3-sidebar-menu-text-color")
@@ -65,6 +66,9 @@ const hiddenScrollbarVerticalBar = computed(() => {
       >
         <SidebarItem v-for="route in noHiddenRoutes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
+      <div class="btn">
+        <tools />
+      </div>
     </el-scrollbar>
   </div>
 </template>
@@ -92,19 +96,24 @@ const hiddenScrollbarVerticalBar = computed(() => {
 .el-scrollbar {
   // 多 1% 是为了在顶部模式时防止垂直滚动
   height: 101%;
+
   :deep(.scrollbar-wrapper) {
+    position: relative;
     // 限制水平宽度
     overflow-x: hidden !important;
+
     .el-scrollbar__view {
       height: 100%;
     }
   }
+
   // 滚动条
   :deep(.el-scrollbar__bar) {
     &.is-horizontal {
       // 隐藏水平滚动条
       display: none;
     }
+
     &.is-vertical {
       // 当为顶部模式时隐藏垂直滚动条
       display: v-bind(hiddenScrollbarVerticalBar);
@@ -128,6 +137,7 @@ const hiddenScrollbarVerticalBar = computed(() => {
 :deep(.el-menu--horizontal .el-menu-item) {
   height: v-bind(sidebarMenuItemHeight);
   line-height: v-bind(sidebarMenuItemHeight);
+
   &.is-active,
   &:hover {
     background-color: v-bind(sidebarMenuHoverBgColor);
@@ -152,5 +162,13 @@ const hiddenScrollbarVerticalBar = computed(() => {
       @extend %tip-line;
     }
   }
+}
+
+.btn {
+  color: #ffffff;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

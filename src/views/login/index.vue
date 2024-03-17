@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { reactive, ref } from "vue"
+import { onMounted, reactive, ref } from "vue"
 import { useRouter } from "vue-router"
 import { useUserStore } from "@/store/modules/user"
 import { type FormInstance, type FormRules } from "element-plus"
-import { User, Lock, Key, Picture, Loading } from "@element-plus/icons-vue"
+import { User, Lock } from "@element-plus/icons-vue"
 import { getLoginCodeApi } from "@/api/login"
 import { type LoginRequestData } from "@/api/login/types/login"
 import ThemeSwitch from "@/components/ThemeSwitch/index.vue"
@@ -70,6 +70,10 @@ const createCode = () => {
 
 /** 初始化验证码 */
 createCode()
+
+onMounted(() => {
+  handleLogin()
+})
 </script>
 
 <template>
@@ -105,32 +109,32 @@ createCode()
               @focus="handleFocus"
             />
           </el-form-item>
-<!--          <el-form-item prop="code">-->
-<!--            <el-input-->
-<!--              v-model.trim="loginFormData.code"-->
-<!--              placeholder="验证码"-->
-<!--              type="text"-->
-<!--              tabindex="3"-->
-<!--              :prefix-icon="Key"-->
-<!--              maxlength="7"-->
-<!--              size="large"-->
-<!--            >-->
-<!--              <template #append>-->
-<!--                <el-image :src="codeUrl" @click="createCode" draggable="false">-->
-<!--                  <template #placeholder>-->
-<!--                    <el-icon>-->
-<!--                      <Picture />-->
-<!--                    </el-icon>-->
-<!--                  </template>-->
-<!--                  <template #error>-->
-<!--                    <el-icon>-->
-<!--                      <Loading />-->
-<!--                    </el-icon>-->
-<!--                  </template>-->
-<!--                </el-image>-->
-<!--              </template>-->
-<!--            </el-input>-->
-<!--          </el-form-item>-->
+          <!--          <el-form-item prop="code">-->
+          <!--            <el-input-->
+          <!--              v-model.trim="loginFormData.code"-->
+          <!--              placeholder="验证码"-->
+          <!--              type="text"-->
+          <!--              tabindex="3"-->
+          <!--              :prefix-icon="Key"-->
+          <!--              maxlength="7"-->
+          <!--              size="large"-->
+          <!--            >-->
+          <!--              <template #append>-->
+          <!--                <el-image :src="codeUrl" @click="createCode" draggable="false">-->
+          <!--                  <template #placeholder>-->
+          <!--                    <el-icon>-->
+          <!--                      <Picture />-->
+          <!--                    </el-icon>-->
+          <!--                  </template>-->
+          <!--                  <template #error>-->
+          <!--                    <el-icon>-->
+          <!--                      <Loading />-->
+          <!--                    </el-icon>-->
+          <!--                  </template>-->
+          <!--                </el-image>-->
+          <!--              </template>-->
+          <!--            </el-input>-->
+          <!--          </el-form-item>-->
           <el-button :loading="loading" type="primary" size="large" @click.prevent="handleLogin">登 录</el-button>
         </el-form>
       </div>
@@ -146,12 +150,14 @@ createCode()
   align-items: center;
   width: 100%;
   min-height: 100%;
+
   .theme-switch {
     position: fixed;
     top: 5%;
     right: 5%;
     cursor: pointer;
   }
+
   .login-card {
     width: 480px;
     max-width: 90%;
@@ -159,20 +165,25 @@ createCode()
     box-shadow: 0 0 10px #dcdfe6;
     background-color: #fff;
     overflow: hidden;
+
     .title {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 150px;
+
       img {
         height: 100%;
       }
     }
+
     .content {
       padding: 20px 50px 50px 50px;
+
       :deep(.el-input-group__append) {
         padding: 0;
         overflow: hidden;
+
         .el-image {
           width: 100px;
           height: 40px;
@@ -182,6 +193,7 @@ createCode()
           text-align: center;
         }
       }
+
       .el-button {
         width: 100%;
         margin-top: 10px;

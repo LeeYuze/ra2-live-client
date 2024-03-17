@@ -85,7 +85,8 @@
   "dependencies": {
     "@electron/remote": "2.1.2",
     "@element-plus/icons-vue": "2.3.1",
-    "axios": "1.6.7",
+    "axios": "^1.2.6",
+    "cheerio": "1.0.0-rc.12",
     "dayjs": "1.11.10",
     "electron-log": "5.1.2",
     "electron-store": "^8.2.0",
@@ -99,12 +100,14 @@
     "path-browserify": "1.0.1",
     "path-to-regexp": "6.2.1",
     "pinia": "2.1.7",
+    "protobufjs": "^7.2.6",
     "screenfull": "6.0.2",
     "vue": "3.4.21",
     "vue-draggable-plus": "^0.3.5",
     "vue-router": "4.3.0",
     "vxe-table": "4.4.1",
     "vxe-table-plugin-element": "3.0.7",
+    "ws": "^8.16.0",
     "xe-utils": "3.5.11"
   },
   "devDependencies": {

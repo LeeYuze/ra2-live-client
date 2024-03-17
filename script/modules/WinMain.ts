@@ -7,6 +7,7 @@ import * as remote from "@electron/remote/main"
 import GlobalConfig from "./GlobalConfig"
 import { mainLog } from "../utils/logger"
 import path from "path-browserify"
+import { runDyLiveParse } from "../liveParse/dy"
 
 class WinMain {
   /** 窗口实例 */
@@ -115,6 +116,11 @@ class WinMain {
       dto.center && this.WIN_INST.center()
       this.WIN_INST.setMaximizable(dto.maxable)
       this.WIN_INST.setResizable(dto.resizable)
+    })
+    // 连接直播间
+    ipcMain.on("connect_live_room", async (_) => {
+      const roomId = "104344375298"
+      runDyLiveParse(roomId)
     })
   }
 }
