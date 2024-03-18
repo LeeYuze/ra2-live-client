@@ -1,11 +1,15 @@
 {
     "controls": [
         {
-            "id": "WvLKNrJNA3Pb9c_hLxLRV",
+            "id": "3D4vCYlsMSntljTkzcFM_",
             "name": "美国大兵 * 2",
             "priority": 1,
             "trigger": [
-                "小心心"
+                "小心心",
+                "玫瑰",
+                "称心如意",
+                "人气票",
+                "抖音"
             ],
             "isGift": true,
             "isLike": false,

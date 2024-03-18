@@ -46,7 +46,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     path: "/",
-    redirect: "/control/center",
+    redirect: "/control/center"
   },
   {
     path: "/control",
@@ -59,6 +59,22 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "ControlCenter",
         meta: {
           title: "控制中心",
+          svgIcon: "unocss"
+        }
+      }
+    ]
+  },
+  {
+    path: "/live",
+    component: Layouts,
+    redirect: "/live/log",
+    children: [
+      {
+        path: "log",
+        component: () => import("@/views/live-log/index.vue"),
+        name: "LiveLog",
+        meta: {
+          title: "弹幕日志",
           svgIcon: "unocss"
         }
       }

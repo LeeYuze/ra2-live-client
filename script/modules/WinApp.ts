@@ -8,6 +8,7 @@ import GlobalConfig from "./GlobalConfig"
 import { mainLog } from "../utils/logger"
 import WinMain from "./WinMain"
 import WinTray from "./WinTray"
+import { runServer } from "./GameServer"
 
 class WinApp {
   /** 初始化 app 配置 */
@@ -79,6 +80,8 @@ class WinApp {
       WinTray.destroy()
       app.releaseSingleInstanceLock()
     })
+
+    runServer()
   }
 
   /** 重启应用 */

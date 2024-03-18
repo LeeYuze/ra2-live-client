@@ -119,7 +119,7 @@ class WinMain {
     })
     // 连接直播间
     ipcMain.on("connect_live_room", async (_) => {
-      const roomId = "104344375298"
+      const roomId = "Axymm888"
       runDyLiveParse(roomId)
     })
   }
