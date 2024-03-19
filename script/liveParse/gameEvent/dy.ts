@@ -37,12 +37,12 @@ const handleWebcastGiftMessage = (message) => {
     recordSendGiftCountMap[queueId] += sendGiftCount
     if (sendGiftCount <= 0) return
     const sendMessageData = editMessageGiftCount(queueId, message, sendGiftCount)
-    sendMessage("DY", "live", JSON.stringify(sendMessageData))
+    sendMessage("DY", "live", sendMessageData)
     // 处理消息
   } else if (!beforeGiftCount || giftCount < beforeGiftCount) {
     // 不存在之前送礼物的数量，或者本次送礼数量少于上次送礼数量
     // 直接发送
-    sendMessage("DY", "live", JSON.stringify(message))
+    sendMessage("DY", "live", message)
     recordSendGiftCountMap[queueId] = giftCount
   }
 
@@ -55,7 +55,7 @@ export const dyHandleParse = async (data) => {
   switch (handleType) {
     case "WebcastMemberMessage":
       // 进入直播间
-      sendMessage("DY", "live", JSON.stringify(data))
+      sendMessage("DY", "live", data)
       break
     case "WebcastGiftMessage":
       // 礼物
@@ -63,15 +63,15 @@ export const dyHandleParse = async (data) => {
       break
     case "WebcastChatMessage":
       // 弹幕
-      sendMessage("DY", "live", JSON.stringify(data))
+      sendMessage("DY", "live", data)
       break
     case "WebcastLikeMessage":
       // 点赞
-      sendMessage("DY", "live", JSON.stringify(data))
+      sendMessage("DY", "live", data)
       break
     case "WebcastSocialMessage":
       // 关注
-      sendMessage("DY", "live", JSON.stringify(data))
+      sendMessage("DY", "live", data)
       break
   }
 }

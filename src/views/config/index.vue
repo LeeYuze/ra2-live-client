@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue"
+import { ElMessage } from "element-plus"
 
 const db = window.database
 
@@ -22,6 +23,7 @@ const loadDataByDb = async () => {
 
 const saveDataByDb = async () => {
   await db.push(`/config`, data.value)
+  ElMessage.success("保存成功")
 }
 
 onMounted(() => {

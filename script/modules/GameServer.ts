@@ -41,6 +41,6 @@ export const runServer = async () => {
 export const sendMessage = (platform, type, message) => {
   // 遍历所有连接的客户端，并发送消息
   clients.forEach((client) => {
-    client.send({ type, message, platform })
+    client.send(JSON.stringify({ type, message, platform }))
   })
 }
