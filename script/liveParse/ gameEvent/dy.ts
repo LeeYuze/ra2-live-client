@@ -4,34 +4,25 @@ const { ipcMain } = require("electron")
 
 const allLiveMessage: any[] = []
 
-const waitGiftTime = 6000
+const waitGiftTime = 5000
 const waitGiftQueue = {}
+const recordSendGiftCountMap = {}
 
-/**
- * 2个时间，是否小于等于maxDifferenceInSeconds
- */
-const checkTimeDifference = (sendTime1, sendTime2, maxDifferenceInSeconds) => {
-  const date1 = new Date(sendTime1)
-  const date2 = new Date(sendTime2)
-
-  const timeDifference = Math.abs(date2 - date1)
-  const timeDifferenceInSeconds = timeDifference / 1000
-
-  return timeDifferenceInSeconds <= maxDifferenceInSeconds
+const timeOutHandleWebcastGiftMessage = (queueId, message) => {
+  const queueMessage = waitGiftQueue[queueId]
+  if (queueMessage && queueMessage.traceId === message.traceId) {
+    waitGiftQueue[queueId] = null
+    recordSendGiftCountMap[queueId] = null
+  }
 }
 
-const timeOutHandleWebcastGiftMessage = (message) => {
-  const { user } = message
-  const queueId = `${user.id}${message.giftId}`
-  const queueMessage = waitGiftQueue[queueId]
-  if (
-    queueMessage &&
-    queueMessage.traceId === message.traceId &&
-    !checkTimeDifference(Date.now(), queueMessage.sendTime, waitGiftTime / 1000)
-  ) {
-    waitGiftQueue[queueId] = null
-    sendMessage(JSON.stringify(message))
-  }
+const editMessageGiftCount = (queueId, message, count) => {
+  const data = { ...message }
+  data.totalCount = recordSendGiftCountMap[queueId]
+  data.repeatCount = count
+  data.comboCount = count
+  data.common.describe = data.common.describe.replace(message.repeatCount, count)
+  return data
 }
 
 const handleWebcastGiftMessage = (message) => {
@@ -40,20 +31,27 @@ const handleWebcastGiftMessage = (message) => {
   // 处理礼物连刷的情况
   // 如果没有礼物，waitGiftQueue[queueId] == 空
   // 如果waitGiftQueue[queueId] 不为空， 判断当前的礼物数量是不是比Queue里的多，不是的话，非连刷，更新队列信息
-  const queueMessage = waitGiftQueue[queueId]
-  if (queueMessage) {
-    // 同用户同礼物新的送礼数量，少于队列中的送礼数量，说明连刷中断了
-    if (
-      !checkTimeDifference(message.sendTime, queueMessage.sendTime, waitGiftTime / 1000) &&
-      message.repeatCount < queueMessage.repeatCount
-    ) {
-      sendMessage(JSON.stringify(queueMessage))
-    }
+  // 收到礼物后，立马发送，如果有连刷情况，就减掉之前发送的数量
+  const beforeGiftCount = recordSendGiftCountMap[queueId]
+  // 本次正确的送礼数量
+  const giftCount = Number(message.repeatCount)
+  let sendGiftCount = 0
+  if (beforeGiftCount) {
+    sendGiftCount = giftCount - beforeGiftCount
+    recordSendGiftCountMap[queueId] += sendGiftCount
+    if (sendGiftCount <= 0) return
+    const sendMessageData = editMessageGiftCount(queueId, message, sendGiftCount)
+    sendMessage(JSON.stringify(sendMessageData))
+    // 处理消息
+  } else if (!beforeGiftCount || giftCount < beforeGiftCount) {
+    // 不存在之前送礼物的数量，或者本次送礼数量少于上次送礼数量
+    // 直接发送
+    sendMessage(JSON.stringify(message))
+    recordSendGiftCountMap[queueId] = giftCount
   }
-  waitGiftQueue[queueId] = message
 
-  setTimeout(() => timeOutHandleWebcastGiftMessage(message), waitGiftTime)
-  // sendMessage(JSON.stringify(message))
+  waitGiftQueue[queueId] = message
+  setTimeout(() => timeOutHandleWebcastGiftMessage(queueId, message), waitGiftTime)
 }
 
 export const dyHandleParse = async (data) => {
