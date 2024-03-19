@@ -9,6 +9,11 @@ import { mainLog } from "../utils/logger"
 import path from "path-browserify"
 import { runDyLiveParse } from "../liveParse/dy"
 
+const { JsonDB } = require("node-json-db")
+const { Config } = require("node-json-db/dist/lib/JsonDBConfig")
+
+const db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
+
 class WinMain {
   /** 窗口实例 */
   private static WIN_INST: BrowserWindow | null = null
@@ -121,7 +126,8 @@ class WinMain {
     let ws
     // 连接直播间
     ipcMain.on("connect_live_room", async (_) => {
-      const roomId = "952641715087"
+      const res = await db.getData("/config")
+      const roomId = res.roomId
       ws = await runDyLiveParse(roomId)
 
       let timer: any

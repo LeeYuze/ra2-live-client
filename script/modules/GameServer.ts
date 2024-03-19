@@ -1,9 +1,18 @@
+import path from "path-browserify"
+
+const { JsonDB } = require("node-json-db")
+const { Config } = require("node-json-db/dist/lib/JsonDBConfig")
+
+const db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
+
 // 定义一个全局变量用于存储所有连接的客户端
 const clients: any[] = []
 
-export const runServer = () => {
+export const runServer = async () => {
+  const res = await db.getData("/config")
+
   const WebSocketServer = require("ws").Server
-  const wss = new WebSocketServer({ port: 8181 })
+  const wss = new WebSocketServer({ port: res.wsPort })
 
   // 当有新连接时
   wss.on("connection", function (ws) {
@@ -29,9 +38,9 @@ export const runServer = () => {
   })
 }
 
-export const sendMessage = (message) => {
+export const sendMessage = (platform, type, message) => {
   // 遍历所有连接的客户端，并发送消息
   clients.forEach((client) => {
-    client.send(message)
+    client.send({ type, message, platform })
   })
 }

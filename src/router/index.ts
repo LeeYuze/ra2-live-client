@@ -75,7 +75,23 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "LiveLog",
         meta: {
           title: "弹幕日志",
-          svgIcon: "unocss"
+          elIcon: "chatLineRound"
+        }
+      }
+    ]
+  },
+  {
+    path: "/config",
+    component: Layouts,
+    redirect: "/config/index",
+    children: [
+      {
+        path: "index",
+        component: () => import("@/views/config/index.vue"),
+        name: "configIndex",
+        meta: {
+          title: "通用设置",
+          elIcon: "setting"
         }
       }
     ]
