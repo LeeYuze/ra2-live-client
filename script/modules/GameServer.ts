@@ -8,7 +8,7 @@ const db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, tr
 // 定义一个全局变量用于存储所有连接的客户端
 const clients: any[] = []
 
-export const runServer = async () => {
+export const runWsServer = async () => {
   const res = await db.getData("/config")
 
   const WebSocketServer = require("ws").Server

@@ -15,6 +15,7 @@ const loadDataByDb = async () => {
     data.value = res
   } catch (e) {
     data.value = {
+      webPort: "",
       wsPort: "",
       roomId: ""
     }
@@ -34,6 +35,9 @@ onMounted(() => {
 <template>
   <div class="app-container">
     <el-form :model="data" label-position="top">
+      <el-form-item label="Web端口号">
+        <el-input v-model="data.webPort" />
+      </el-form-item>
       <el-form-item label="Websocket端口号">
         <el-input v-model="data.wsPort" />
       </el-form-item>

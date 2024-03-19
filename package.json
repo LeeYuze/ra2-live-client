@@ -91,6 +91,7 @@
     "electron-log": "5.1.2",
     "electron-store": "^8.2.0",
     "element-plus": "2.6.1",
+    "koa": "^2.15.1",
     "lodash-es": "4.17.21",
     "mitt": "3.0.1",
     "nanoid": "^5.0.6",
