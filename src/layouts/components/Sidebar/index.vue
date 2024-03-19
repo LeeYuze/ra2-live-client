@@ -9,7 +9,7 @@ import Logo from "../Logo/index.vue"
 import { useDevice } from "@/hooks/useDevice"
 import { useLayoutMode } from "@/hooks/useLayoutMode"
 import { getCssVariableValue } from "@/utils"
-import Tools from "@/layouts/components/Sidebar/Tools.vue"
+import LiveRunBar from "@/components/LiveRunBar/Index.vue"
 
 const v3SidebarMenuBgColor = getCssVariableValue("--v3-sidebar-menu-bg-color")
 const v3SidebarMenuTextColor = getCssVariableValue("--v3-sidebar-menu-text-color")
@@ -67,7 +67,7 @@ const hiddenScrollbarVerticalBar = computed(() => {
         <SidebarItem v-for="route in noHiddenRoutes" :key="route.path" :item="route" :base-path="route.path" />
       </el-menu>
       <div class="btn">
-        <tools />
+        <LiveRunBar />
       </div>
     </el-scrollbar>
   </div>

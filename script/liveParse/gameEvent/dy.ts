@@ -1,9 +1,5 @@
 import { sendMessage } from "../../modules/GameServer"
 
-const { ipcMain } = require("electron")
-
-const allLiveMessage: any[] = []
-
 const waitGiftTime = 5000
 const waitGiftQueue = {}
 const recordSendGiftCountMap = {}
@@ -63,28 +59,19 @@ export const dyHandleParse = async (data) => {
   switch (handleType) {
     case "WebcastMemberMessage":
       // 进入直播间
-      allLiveMessage.push(data)
       break
     case "WebcastGiftMessage":
       // 礼物
       handleWebcastGiftMessage(data)
-      allLiveMessage.push(data)
       break
     case "WebcastChatMessage":
       // 弹幕
-      allLiveMessage.push(data)
       break
     case "WebcastLikeMessage":
       // 点赞
-      allLiveMessage.push(data)
       break
     case "WebcastSocialMessage":
       // 关注
-      allLiveMessage.push(data)
       break
   }
 }
-
-ipcMain.on("getAllLiveMessage", (event) => {
-  event.sender.send("sendAllLiveMessage", allLiveMessage)
-})

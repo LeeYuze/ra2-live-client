@@ -1,6 +1,6 @@
 import startWebsocket from "./ws"
 import { Handles } from "./incoming"
-import { handleParse } from "../ gameEvent"
+import { handleParse } from "../gameEvent"
 
 process.env.LC_ALL = "zh_CN.UTF-8"
 process.env.LANG = "zh_CN.UTF-8"
@@ -30,5 +30,5 @@ const handles: Handles = {
   }
 }
 export const runDyLiveParse = (liveId: string) => {
-  startWebsocket(liveId, handles)
+  return startWebsocket(liveId, handles)
 }

@@ -117,10 +117,35 @@ class WinMain {
       this.WIN_INST.setMaximizable(dto.maxable)
       this.WIN_INST.setResizable(dto.resizable)
     })
+
+    let ws
     // 连接直播间
     ipcMain.on("connect_live_room", async (_) => {
-      const roomId = "351265682049"
-      runDyLiveParse(roomId)
+      const roomId = "952641715087"
+      ws = await runDyLiveParse(roomId)
+
+      let timer: any
+      // eslint-disable-next-line prefer-const
+      timer = setInterval(() => {
+        switch (ws.readyState) {
+          case 0:
+            break
+          case 1:
+            _.sender.send("connect_live_success")
+            clearInterval(timer)
+            break
+          case 2:
+            break
+          case 3:
+            _.sender.send("connect_live_fail")
+            clearInterval(timer)
+            break
+          default:
+        }
+      }, 500)
+    })
+    ipcMain.on("disConnect_live_room", () => {
+      ws.close()
     })
   }
 }

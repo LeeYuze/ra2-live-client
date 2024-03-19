@@ -1,28 +1,37 @@
-// const clients: any[] = []
-let client: any = null
+// 定义一个全局变量用于存储所有连接的客户端
+const clients: any[] = []
+
 export const runServer = () => {
   const WebSocketServer = require("ws").Server
   const wss = new WebSocketServer({ port: 8181 })
 
-  // 定义一个发送消息给所有客户端的函数
-
+  // 当有新连接时
   wss.on("connection", function (ws) {
+    console.log("Client connected")
+
     // 将新连接的WebSocket对象添加到clients数组中
-    client = ws
-    //
-    // ws.on("message", function (message) {
-    //   // 可选：在接收到消息时进行处理
-    // })
+    clients.push(ws)
 
     ws.on("close", function () {
-      console.log("client disconnected")
+      console.log("Client disconnected")
 
-      client = null
+      // 在关闭连接时从clients数组中移除对应的客户端
+      const index = clients.indexOf(ws)
+      if (index !== -1) {
+        clients.splice(index, 1)
+      }
     })
+
+    // 可选：在接收到消息时进行处理
+    // ws.on("message", function (message) {
+    //   console.log("Received: ", message);
+    // });
   })
 }
 
 export const sendMessage = (message) => {
-  if (client == null) return
-  client.send(message)
+  // 遍历所有连接的客户端，并发送消息
+  clients.forEach((client) => {
+    client.send(message)
+  })
 }

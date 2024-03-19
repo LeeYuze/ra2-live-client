@@ -7,7 +7,7 @@ const startWebsocket = async (liveId: string, handlers: Handles) => {
   const { ttwid, liveRoomId } = await parseLiveUrl(liveId)
 
   //  每8秒发送一次心跳，保持服务器持续连接
-  let timer: NodeJS.Timer
+  let timer: any
 
   const ws = await initWsConnect({ ttwid, liveRoomId })
 
