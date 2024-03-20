@@ -79,7 +79,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="app-container">
     <div v-for="(item, index) in allMessage" :key="index">
-      <div class="text text-webcastMemberMessage" v-if="item.common.method === 'WebcastMemberMessage'">
+      <div class="text text-webcastMemberMessage" v-if="item.common.method === 'WebcastMemberMessage123'">
         {{ item.user.nickName }}进入直播间
       </div>
       <div class="text text-webcastMemberMessage" v-if="item.common.method === 'WebcastGiftMessage'">

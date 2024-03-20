@@ -1,15 +1,11 @@
 {
     "controls": [
         {
-            "id": "SdBpulBfstoMf_blrCg81",
+            "id": "JeboeNCrGBXea7KSSuWtK",
             "name": "美国大兵 * 2",
             "priority": 1,
             "trigger": [
-                "小心心",
-                "玫瑰",
-                "称心如意",
-                "人气票",
-                "抖音"
+                "小心心"
             ],
             "isGift": true,
             "isLike": false,
@@ -20,7 +16,7 @@
                     "actionType": 0,
                     "gameType": 0,
                     "parameter": {
-                        "targetPlayer": 0,
+                        "targetPlayer": 1,
                         "ownerPlayer": 1,
                         "unitType": 3,
                         "count": 2,
@@ -31,11 +27,39 @@
                     }
                 }
             ]
+        },
+        {
+            "id": "nWfIL5-ZcpdOaMegmxaF7",
+            "name": "光棱坦克 * 2",
+            "priority": 1,
+            "trigger": [
+                "人气票"
+            ],
+            "isGift": true,
+            "isLike": false,
+            "likeNumber": 1,
+            "actions": [
+                {
+                    "id": "Vvn25Abzg386HTuQXn_xK",
+                    "actionType": 0,
+                    "gameType": 0,
+                    "parameter": {
+                        "targetPlayer": 0,
+                        "ownerPlayer": 0,
+                        "unitType": 7,
+                        "count": 2,
+                        "unitLevelType": 2,
+                        "sellBuildType": 0,
+                        "superWeaponType": 0,
+                        "unitCode": "SREF"
+                    }
+                }
+            ]
         }
     ],
     "config": {
         "webPort": "8080",
         "wsPort": "8181",
-        "roomId": "178147355725"
+        "roomId": "194213083403"
     }
 }

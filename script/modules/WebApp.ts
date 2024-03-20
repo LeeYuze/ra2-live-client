@@ -4,7 +4,7 @@ const Koa = require("koa")
 const { JsonDB } = require("node-json-db")
 const { Config } = require("node-json-db/dist/lib/JsonDBConfig")
 
-const db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
+let db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
 
 export const runWebServer = async () => {
   const res = await db.getData("/config")
@@ -19,6 +19,7 @@ export const runWebServer = async () => {
     )
     ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
     if (ctx.path === "/controls" && ctx.method === "GET") {
+      db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
       const controls = await db.getData("/controls")
       ctx.body = {
         res: controls

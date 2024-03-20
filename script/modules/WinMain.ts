@@ -128,7 +128,11 @@ class WinMain {
     ipcMain.on("connect_live_room", async (_) => {
       const res = await db.getData("/config")
       const roomId = res.roomId
-      ws = await runDyLiveParse(roomId)
+      try {
+        ws = await runDyLiveParse(roomId)
+      } catch (error) {
+        _.sender.send("connect_live_fail")
+      }
 
       let timer: any
       // eslint-disable-next-line prefer-const
