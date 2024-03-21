@@ -12,6 +12,7 @@ const props = defineProps({
         targetPlayer: 0,
         ownerPlayer: 0,
         unitType: 3,
+        limitCount: 500,
         count: 1,
         unitLevelType: 2,
         sellBuildType: 0,
@@ -95,6 +96,9 @@ const deleteOnClick = () => {
           style="width: 120px"
           placeholder="单位代码"
         />
+        <el-tooltip effect="dark" content="本次生成最大数量" placement="top">
+          <el-input-number class="ml-10px" v-model="data.parameter.limitCount" size="small" :min="1" />
+        </el-tooltip>
       </el-form-item>
       <el-form-item v-if="data.gameType === 1" label="武器参数">
         <el-select

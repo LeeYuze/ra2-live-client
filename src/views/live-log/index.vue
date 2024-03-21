@@ -85,7 +85,7 @@ onBeforeUnmount(() => {
       <div class="text text-webcastMemberMessage" v-if="item.common.method === 'WebcastGiftMessage'">
         {{ item.user.nickName }}送{{ item.gift.name }} x {{ item.repeatCount }}
       </div>
-      <div class="text text-webcastChatMessage" v-if="item.common.method === 'WebcastChatMessage'">
+      <div class="text text-webcastChatMessage" v-if="item.common.method === 'WebcastChatMessage123'">
         {{ item.user.nickName }}：{{ item.content }}
       </div>
     </div>

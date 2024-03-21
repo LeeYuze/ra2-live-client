@@ -70,6 +70,7 @@ const gameEventOnClick = () => {
       ownerPlayer: 0,
       unitType: 3,
       count: 1,
+      limitCount: 500,
       unitLevelType: 2,
       sellBuildType: 0,
       superWeaponType: 0,
@@ -85,7 +86,9 @@ const gameEventDeleteOnClick = (id) => {
 }
 
 const dialogConfirmOnClick = async () => {
-  data.value.id = nanoid()
+  if (!data.value.id) {
+    data.value.id = nanoid()
+  }
 
   if (!data.value.name) {
     ElMessage.error("名称不能为空")

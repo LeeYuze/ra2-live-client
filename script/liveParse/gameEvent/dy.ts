@@ -17,7 +17,7 @@ const editMessageGiftCount = (queueId, message, count) => {
   data.totalCount = recordSendGiftCountMap[queueId]
   data.repeatCount = count
   data.comboCount = count
-  data.common.describe = data.common.describe.replace(message.repeatCount, count)
+  data.common.describe = data.common.describe.replace(Number(message.repeatCount), count)
   return data
 }
 

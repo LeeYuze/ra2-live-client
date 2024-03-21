@@ -14,7 +14,7 @@ export const dictStore = defineStore("dict", () => {
       value: 1
     },
     {
-      label: "全部单位升级",
+      label: "修改全部单位等级",
       key: "UnitUpgrade",
       value: 2
     },
@@ -99,12 +99,12 @@ export const dictStore = defineStore("dict", () => {
 
   const unitLevelType = ref([
     {
-      label: "1星",
+      label: "0星",
       key: "None",
       value: 0
     },
     {
-      label: "2星",
+      label: "1星",
       key: "Veteran",
       value: 1
     },

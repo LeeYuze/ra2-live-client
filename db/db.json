@@ -1,38 +1,11 @@
 {
     "controls": [
         {
-            "id": "JeboeNCrGBXea7KSSuWtK",
-            "name": "美国大兵 * 2",
+            "id": "_3DtFlLYvRNSz_LoLX_J_",
+            "name": "美国大兵",
             "priority": 1,
             "trigger": [
-                "小心心"
-            ],
-            "isGift": true,
-            "isLike": false,
-            "likeNumber": 1,
-            "actions": [
-                {
-                    "id": "uh1k5ODgupIw698S8UuTB",
-                    "actionType": 0,
-                    "gameType": 0,
-                    "parameter": {
-                        "targetPlayer": 1,
-                        "ownerPlayer": 1,
-                        "unitType": 3,
-                        "count": 2,
-                        "unitLevelType": 2,
-                        "sellBuildType": 0,
-                        "superWeaponType": 0,
-                        "unitCode": "E1"
-                    }
-                }
-            ]
-        },
-        {
-            "id": "nWfIL5-ZcpdOaMegmxaF7",
-            "name": "光棱坦克 * 2",
-            "priority": 1,
-            "trigger": [
+                "小心心",
                 "人气票"
             ],
             "isGift": true,
@@ -40,18 +13,19 @@
             "likeNumber": 1,
             "actions": [
                 {
-                    "id": "Vvn25Abzg386HTuQXn_xK",
+                    "id": "MNA9XsyCBiqL8zQmR9s8B",
                     "actionType": 0,
                     "gameType": 0,
                     "parameter": {
-                        "targetPlayer": 0,
-                        "ownerPlayer": 0,
-                        "unitType": 7,
-                        "count": 2,
+                        "targetPlayer": 1,
+                        "ownerPlayer": 1,
+                        "unitType": 3,
+                        "count": 3,
+                        "limitCount": 200,
                         "unitLevelType": 2,
                         "sellBuildType": 0,
                         "superWeaponType": 0,
-                        "unitCode": "SREF"
+                        "unitCode": "E1"
                     }
                 }
             ]
@@ -60,6 +34,6 @@
     "config": {
         "webPort": "8080",
         "wsPort": "8181",
-        "roomId": "194213083403"
+        "roomId": "wd77728"
     }
 }
