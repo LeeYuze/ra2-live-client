@@ -1,4 +1,5 @@
 import path from "path-browserify"
+import { ipcMain } from "electron"
 
 const { JsonDB } = require("node-json-db")
 const { Config } = require("node-json-db/dist/lib/JsonDBConfig")
@@ -44,3 +45,7 @@ export const sendMessage = (platform, type, message) => {
     client.send(JSON.stringify({ type, message, platform }))
   })
 }
+
+ipcMain.on("send_debug_message", (_, msg) => {
+  sendMessage("DY", "live", msg)
+})

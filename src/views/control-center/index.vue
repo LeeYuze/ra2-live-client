@@ -35,6 +35,27 @@ const editOnClick = (id) => {
   isVisible.value = true
 }
 
+const debugOnClick = (row) => {
+  const { ipcRenderer } = require("electron")
+
+  const { trigger, isGift } = row
+  if (isGift) {
+    const msg = {
+      common: {
+        method: "WebcastGiftMessage"
+      },
+      gift: {
+        name: trigger[0]
+      },
+      repeatCount: 1,
+      user: {
+        nickName: "测试人员"
+      }
+    }
+    ipcRenderer.send("send_debug_message", msg)
+  }
+}
+
 const deleteOnClick = (id) => {
   ElMessageBox.confirm("您确定删除此条数据吗?", "警告", {
     confirmButtonText: "确定",
@@ -84,7 +105,7 @@ const deleteOnClick = (id) => {
         <template #default="scope">
           <el-button type="primary" link @click="editOnClick(scope.row.id)">修改</el-button>
           <el-button type="danger" link @click="deleteOnClick(scope.row.id)">删除</el-button>
-          <el-button type="info" link>调试</el-button>
+          <el-button type="info" link @click="debugOnClick(scope.row)">调试</el-button>
         </template>
       </el-table-column>
     </el-table>

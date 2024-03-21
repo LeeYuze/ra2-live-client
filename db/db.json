@@ -1,11 +1,10 @@
 {
     "controls": [
         {
-            "id": "_3DtFlLYvRNSz_LoLX_J_",
-            "name": "美国大兵",
+            "id": "ZoosjHnQLpxxZIOkJLux3",
+            "name": "电脑 美国大兵",
             "priority": 1,
             "trigger": [
-                "小心心",
                 "人气票"
             ],
             "isGift": true,
@@ -13,19 +12,77 @@
             "likeNumber": 1,
             "actions": [
                 {
-                    "id": "MNA9XsyCBiqL8zQmR9s8B",
+                    "id": "Q6Z_d-Dxvzray_2K2hfFm",
                     "actionType": 0,
                     "gameType": 0,
                     "parameter": {
                         "targetPlayer": 1,
                         "ownerPlayer": 1,
                         "unitType": 3,
-                        "count": 3,
-                        "limitCount": 200,
+                        "count": 2,
+                        "limitCount": 500,
                         "unitLevelType": 2,
                         "sellBuildType": 0,
                         "superWeaponType": 0,
                         "unitCode": "E1"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "yLbAPYQKP2HXv9UHUnOTs",
+            "name": "电脑 犀牛坦克",
+            "priority": 1,
+            "trigger": [
+                "小心心"
+            ],
+            "isGift": true,
+            "isLike": false,
+            "likeNumber": 1,
+            "actions": [
+                {
+                    "id": "State-H5XE0BRQhrMEcAV",
+                    "actionType": 0,
+                    "gameType": 0,
+                    "parameter": {
+                        "targetPlayer": 1,
+                        "ownerPlayer": 1,
+                        "unitType": 7,
+                        "count": 2,
+                        "limitCount": 500,
+                        "unitLevelType": 2,
+                        "sellBuildType": 0,
+                        "superWeaponType": 0,
+                        "unitCode": "HTNK"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "4xj-IJiS0aTr_qWKnrvS8",
+            "name": "电脑 核弹",
+            "priority": 1,
+            "trigger": [
+                "粉丝团灯牌"
+            ],
+            "isGift": true,
+            "isLike": false,
+            "likeNumber": 1,
+            "actions": [
+                {
+                    "id": "IuE6xQsZiB0-ps8VsXIKk",
+                    "actionType": 0,
+                    "gameType": 1,
+                    "parameter": {
+                        "targetPlayer": 1,
+                        "ownerPlayer": 0,
+                        "unitType": 3,
+                        "count": 1,
+                        "limitCount": 500,
+                        "unitLevelType": 2,
+                        "sellBuildType": 0,
+                        "superWeaponType": 0,
+                        "unitCode": ""
                     }
                 }
             ]
@@ -34,6 +91,6 @@
     "config": {
         "webPort": "8080",
         "wsPort": "8181",
-        "roomId": "wd77728"
+        "roomId": "660292215268"
     }
 }
