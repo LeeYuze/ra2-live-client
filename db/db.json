@@ -1,35 +1,5 @@
 {
-    "controls": [
-        {
-            "id": "ZoosjHnQLpxxZIOkJLux3",
-            "name": "电脑 美国大兵",
-            "priority": 1,
-            "trigger": [
-                "哈哈213123"
-            ],
-            "isGift": false,
-            "isLike": false,
-            "likeNumber": 1,
-            "actions": [
-                {
-                    "id": "Q6Z_d-Dxvzray_2K2hfFm",
-                    "actionType": 0,
-                    "gameType": 0,
-                    "parameter": {
-                        "targetPlayer": 0,
-                        "ownerPlayer": 0,
-                        "unitType": 3,
-                        "count": 2,
-                        "limitCount": 500,
-                        "unitLevelType": 2,
-                        "sellBuildType": 0,
-                        "superWeaponType": 0,
-                        "unitCode": "E1"
-                    }
-                }
-            ]
-        }
-    ],
+    "controls": [],
     "config": {
         "webPort": "8080",
         "wsPort": "8181",

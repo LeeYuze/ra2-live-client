@@ -1,8 +1,8 @@
 {
-  "name": "v3-electron-vite",
-  "version": "4.4.0",
-  "description": "v3-electron-client",
-  "author": "nevlf<2863180001@qq.com>",
+  "name": "ra2-live",
+  "version": "1.1.0",
+  "description": "红警2直播",
+  "author": "无",
   "main": "dist/index.js",
   "engines": {
     "node": ">=20.0.0"
@@ -25,8 +25,8 @@
     "prepare": "husky"
   },
   "build": {
-    "productName": "v3-electron-vite",
-    "appId": "com.app.v3-electron-vite",
+    "productName": "ra2-live",
+    "appId": "com.app.ra2-live",
     "directories": {
       "output": "release/v${version}_${platform}"
     },
