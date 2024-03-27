@@ -53,6 +53,18 @@ const debugOnClick = (row) => {
       }
     }
     ipcRenderer.send("send_debug_message", msg)
+  } else if (!isGift) {
+    const msg = {
+      common: {
+        method: "WebcastChatMessage"
+      },
+      content: trigger[0],
+      repeatCount: 1,
+      user: {
+        nickName: "测试人员"
+      }
+    }
+    ipcRenderer.send("send_debug_message", msg)
   }
 }
 
