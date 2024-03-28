@@ -1,16 +1,23 @@
-import path from "path-browserify"
 import { ipcMain } from "electron"
+import { getDb } from "../utils/db"
 
-const { JsonDB } = require("node-json-db")
-const { Config } = require("node-json-db/dist/lib/JsonDBConfig")
-
-const db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
+const db = getDb()
 
 // 定义一个全局变量用于存储所有连接的客户端
 const clients: any[] = []
 
 export const runWsServer = async () => {
-  const res = await db.getData("/config")
+  let res
+  try {
+    res = await db.getData("/config")
+  } catch (err) {
+    await db.push(`/config`, {
+      webPort: "8080",
+      wsPort: "8181",
+      roomId: ""
+    })
+    res = await db.getData("/config")
+  }
 
   const WebSocketServer = require("ws").Server
   const wss = new WebSocketServer({ port: res.wsPort })

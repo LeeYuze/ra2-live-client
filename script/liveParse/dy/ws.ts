@@ -2,6 +2,7 @@ import type { Handles } from "./incoming"
 import { parseLiveUrl } from "./parse"
 import { initWsConnect } from "./connect"
 import { heartbeat, incoming } from "./incoming"
+import { mainLog } from "../../utils/logger"
 
 const startWebsocket = async (liveId: string, handlers: Handles) => {
   const { ttwid, liveRoomId } = await parseLiveUrl(liveId)
@@ -25,7 +26,10 @@ const startWebsocket = async (liveId: string, handlers: Handles) => {
     // logger.warn('disconnected')
   }
 
-  ws.onerror = (err) => console.error(err.error)
+  ws.onerror = (err) => {
+    console.error(err.error)
+    mainLog.error(err.error)
+  }
 
   ws.onmessage = (data) => incoming(data, ws, handlers)
 

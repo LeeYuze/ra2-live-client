@@ -1,9 +1,17 @@
 import type WebSocket from "ws"
 import protobuf from "protobufjs"
 
+import { mainLog } from "../../utils/logger"
 import { tools } from "../../utils"
 import type { DY } from "./proto/dy"
 import path from "path"
+import GlobalConfig from "../../modules/GlobalConfig"
+
+const isDev = GlobalConfig.IS_DEV_MODE
+
+const proto = !isDev
+  ? path.join(process.resourcesPath, "./extraResources/dy.proto")
+  : path.join("./extraResources/dy.proto")
 
 export interface Handles {
   handleChatMessage?: (data: DY.ChatMessage) => void
@@ -19,7 +27,6 @@ export interface Handles {
 }
 
 export async function heartbeat(ws: WebSocket) {
-  const proto = path.resolve("dy.proto")
   const root = await protobuf.load(proto)
   const PushFrame = root.lookupType("douyin.PushFrame")
 
@@ -43,8 +50,8 @@ export async function incoming(
     handleUnknowMessage
   }: Handles
 ) {
-  const proto = path.resolve("dy.proto")
   const root = await protobuf.load(proto)
+  mainLog.info(proto)
   const PushFrame = root.lookupType("douyin.PushFrame")
   const Response = root.lookupType("douyin.Response")
   const ChatMessage = root.lookupType("douyin.ChatMessage")

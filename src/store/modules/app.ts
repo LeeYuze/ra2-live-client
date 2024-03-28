@@ -16,7 +16,7 @@ function handleSidebarStatus(opened: boolean) {
 export const useAppStore = defineStore("app", () => {
   /** 侧边栏状态 */
   const sidebar: Sidebar = reactive({
-    opened: getSidebarStatus() !== SIDEBAR_CLOSED,
+    opened: getSidebarStatus() !== SIDEBAR_OPENED,
     withoutAnimation: false
   })
   /** 设备类型 */

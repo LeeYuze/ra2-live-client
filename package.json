@@ -30,7 +30,9 @@
     "directories": {
       "output": "release/v${version}_${platform}"
     },
-    "extraResources": [],
+    "extraResources": [
+      "./extraResources/**"
+    ],
     "files": [
       "dist/**/*",
       "static/**/*"

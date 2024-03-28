@@ -39,6 +39,11 @@ const dict = dictStore()
 const deleteOnClick = () => {
   emits("delete", data.value.id)
 }
+
+const gotoUnitCodeWeb = () => {
+  const { shell } = require("electron")
+  shell.openExternal("https://www.360docs.net/doc/4e10251249.html")
+}
 </script>
 
 <template>
@@ -96,6 +101,9 @@ const deleteOnClick = () => {
           style="width: 120px"
           placeholder="单位代码"
         />
+        <el-tooltip effect="dark" content="点我跳转单位代码大全" placement="top">
+          <el-icon class="ml-5px pointer" @click="gotoUnitCodeWeb"><WarningFilled /></el-icon>
+        </el-tooltip>
         <el-tooltip effect="dark" content="本次生成最大数量" placement="top">
           <el-input-number class="ml-10px" v-model="data.parameter.limitCount" size="small" :min="1" />
         </el-tooltip>

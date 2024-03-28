@@ -6,10 +6,11 @@ const allMessage = ref([])
 let ws
 const connect = async () => {
   const res = await db.getData("/config")
+  const Websocket = require("ws")
 
   const url = "ws://localhost:" + res.wsPort
 
-  ws = new WebSocket(url)
+  ws = new Websocket(url)
 
   ws.onopen = function () {
     console.log("WebSocket Connected")

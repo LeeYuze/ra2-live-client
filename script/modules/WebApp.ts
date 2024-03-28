@@ -1,14 +1,20 @@
-import path from "path-browserify"
+import { mainLog } from "../utils/logger"
+import { getDb } from "../utils/db"
 
 const Koa = require("koa")
-const { JsonDB } = require("node-json-db")
-const { Config } = require("node-json-db/dist/lib/JsonDBConfig")
 
-let db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
+let db = getDb()
 
 export const runWebServer = async () => {
-  const res = await db.getData("/config")
-  const port = res.webPort
+  let res
+  let port
+  try {
+    res = await db.getData("/config")
+    port = res.webPort
+  } catch (e) {
+    mainLog.error(e)
+    port = 8080
+  }
   const app = new Koa()
 
   app.use(async (ctx) => {
@@ -19,10 +25,18 @@ export const runWebServer = async () => {
     )
     ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS")
     if (ctx.path === "/controls" && ctx.method === "GET") {
-      db = new JsonDB(new Config(path.join(__dirname, "../db/db.json"), true, true, "/"))
+      db = getDb()
       const controls = await db.getData("/controls")
       ctx.body = {
         res: controls
+      }
+    }
+
+    if (ctx.path === "/config" && ctx.method === "GET") {
+      db = getDb()
+      const config = await db.getData("/config")
+      ctx.body = {
+        res: config
       }
     }
   })
